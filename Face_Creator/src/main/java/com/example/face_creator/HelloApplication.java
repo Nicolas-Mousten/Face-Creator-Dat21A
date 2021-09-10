@@ -45,6 +45,7 @@ public class HelloApplication extends Application {
         boolean suprise = rand1;
         boolean funny = rand2;
         boolean evil = rand3;
+        boolean dumbledore = true;
         drawShape();
         if (suprise == false) {
             drawMouth1();
@@ -63,9 +64,15 @@ public class HelloApplication extends Application {
         else if(evil ==true){
             voldyNose();
         }
+        if(dumbledore==true){
+            beard2();
+        }
+        else if(dumbledore==false){
+            beard1();
+        }
         hair();//already random
         eyeBrows();
-        beard1();
+
     }
     public static void drawShape() {
         gc.strokeOval(150, 150, 300, 300);
@@ -145,11 +152,15 @@ public class HelloApplication extends Application {
 
     public static void beard2() {
         Random random = new Random();
-        for (int x = 0; x < 150; x = x + 2) {
-            int rand = random.nextInt(500 - 470) + 470;
-            double quarterBeard = (Math.pow(x, 2)) / 180;
+        for (double x = 0; x < 50; x = x + 1.5) {
+            int rand = random.nextInt(600 - 470) + 470;
+            int rand1 = random.nextInt(550 - 470) + 470;
+            double quarterBeard = (Math.pow(x, 2)) / 250;
             gc.strokeLine(300 + x, 450 - quarterBeard, 300 + x, rand - quarterBeard);
             gc.strokeLine(300 - x, 450 - quarterBeard, 300 - x, rand - quarterBeard);
+            gc.strokeLine(300 + x, 450 - quarterBeard, 300 + x, rand1 - quarterBeard);
+            gc.strokeLine(300 - x, 450 - quarterBeard, 300 - x, rand1 - quarterBeard);
+
         }
     }
 
