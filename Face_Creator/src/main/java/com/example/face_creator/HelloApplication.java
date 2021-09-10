@@ -1,5 +1,7 @@
 package com.example.face_creator;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -9,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Random;
@@ -35,17 +38,25 @@ public class HelloApplication extends Application {
         drawPrimitiveFace();
 
         stage.show();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+            gc.clearRect(0, 0, width, height);
+            drawPrimitiveFace();
+        }));
+        timeline.setCycleCount(360);
+        timeline.play();
     }
 
     public static void drawPrimitiveFace() {
+        gc.setFill(Color.YELLOW);//Face color
         Random random = new Random();
         boolean rand1 = random.nextBoolean();
         boolean rand2 = random.nextBoolean();
         boolean rand3 = random.nextBoolean();
+        boolean rand4 = random.nextBoolean();
         boolean suprise = rand1;
         boolean funny = rand2;
         boolean evil = rand3;
-        boolean dumbledore = true;
+        boolean dumbledore = rand4;
         drawShape();
         if (suprise == false) {
             drawMouth1();
@@ -75,7 +86,10 @@ public class HelloApplication extends Application {
 
     }
     public static void drawShape() {
+        gc.setLineWidth(3);
         gc.strokeOval(150, 150, 300, 300);
+        gc.fillOval(150, 150, 300, 300);
+        gc.setLineWidth(1);
     }
 
     public static void drawMouth1() {
@@ -91,14 +105,16 @@ public class HelloApplication extends Application {
         }
 
     public static void googlyEyes(){
+        gc.setFill(Color.BLUE);
         gc.fillOval(220,210,20,20);
         gc.fillOval(380,230,20,20);
+        //Outer eges of the eye
         gc.strokeOval(210,210,50,50);
         gc.strokeOval(350,210,50,50);
     }
 
     public static void drawEyes() {
-        gc.setFill(Color.BLACK);
+        gc.setFill(Color.BLUE);
         gc.fillOval(220,220,20,20);
         gc.fillOval(360,220,20,20);
         gc.translate(215, 205);
@@ -116,15 +132,19 @@ public class HelloApplication extends Application {
         gc.strokeArc(309,275+10,50,50,135,90, ArcType.OPEN);
         gc.strokeArc(250,275+10,50,50,315,90, ArcType.OPEN);
         gc.strokeArc(292,310+10,25,25,160,225,ArcType.OPEN);
+
+        gc.setFill(Color.BLACK);
         gc.fillOval(294,320+10,7,7);
         gc.fillOval(308,320+10,7,7);
     }
     public static void voldyNose(){
+        gc.setFill(Color.BLACK);
         gc.fillOval(294,320+10,7,7);
         gc.fillOval(308,320+10,7,7);
     }
 
     public static void hair() {
+        gc.setLineWidth(1.5);
         Random random = new Random();
         for (int i = 0; i < 250; i = 2 + i) {
             int rand = random.nextInt(200 - 150) + 150;
@@ -132,22 +152,27 @@ public class HelloApplication extends Application {
             int yMin = rand + 15;
             gc.strokeLine(175 + i, yMax, 175 + i, yMin);
         }
+        gc.setLineWidth(1);
     }
     public static void eyeBrows(){
+        gc.setStroke(Color.BROWN);
             for(int i = 0; i<75; i++){
                 gc.strokeLine(210+i,200+(i/2), 190+i, 180+(i/2));
                 gc.strokeLine(320+i,237.5-(i/2), 340+i, 217.5-(i/2));
             }
+            gc.setStroke(Color.BLACK);
         }
 
     public static void beard1(){
         Random random = new Random();
-        for(int x = 0; x<150;x = x+2){
+        gc.setStroke(Color.GRAY);
+        for(double x = 0; x<150;x = x+1.5){
             int rand = random.nextInt(500 - 470)+470;
             double quarterBeard = (Math.pow(x,2))/180;
             gc.strokeLine(300+x,450-quarterBeard,300+x,rand-quarterBeard);
             gc.strokeLine(300-x,450-quarterBeard,300-x,rand-quarterBeard);
         }
+        gc.setStroke(Color.BLACK);
     }
 
     public static void beard2() {
