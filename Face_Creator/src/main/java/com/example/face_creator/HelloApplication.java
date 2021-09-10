@@ -38,9 +38,13 @@ public class HelloApplication extends Application {
     }
 
     public static void drawPrimitiveFace() {
-        boolean suprise = true;
-        boolean funny = true;
-        boolean evil = true;
+        Random random = new Random();
+        boolean rand1 = random.nextBoolean();
+        boolean rand2 = random.nextBoolean();
+        boolean rand3 = random.nextBoolean();
+        boolean suprise = rand1;
+        boolean funny = rand2;
+        boolean evil = rand3;
         drawShape();
         if (suprise == false) {
             drawMouth1();
@@ -59,7 +63,7 @@ public class HelloApplication extends Application {
         else if(evil ==true){
             voldyNose();
         }
-        hair();
+        hair();//already random
         eyeBrows();
         beard1();
     }
@@ -130,15 +134,24 @@ public class HelloApplication extends Application {
         }
 
     public static void beard1(){
+        Random random = new Random();
         for(int x = 0; x<150;x = x+2){
+            int rand = random.nextInt(500 - 470)+470;
             double quarterBeard = (Math.pow(x,2))/180;
-            gc.strokeLine(300+x,450-quarterBeard,300+x,470-quarterBeard);
-            gc.strokeLine(300-x,450-quarterBeard,300-x,470-quarterBeard);
+            gc.strokeLine(300+x,450-quarterBeard,300+x,rand-quarterBeard);
+            gc.strokeLine(300-x,450-quarterBeard,300-x,rand-quarterBeard);
         }
     }
 
-
-
+    public static void beard2() {
+        Random random = new Random();
+        for (int x = 0; x < 150; x = x + 2) {
+            int rand = random.nextInt(500 - 470) + 470;
+            double quarterBeard = (Math.pow(x, 2)) / 180;
+            gc.strokeLine(300 + x, 450 - quarterBeard, 300 + x, rand - quarterBeard);
+            gc.strokeLine(300 - x, 450 - quarterBeard, 300 - x, rand - quarterBeard);
+        }
+    }
 
 
     public static void main(String[] args) {
